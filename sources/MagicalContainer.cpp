@@ -80,15 +80,15 @@ namespace ariel
         size_t i = 0;
         while (i < this->size() / 2)
         {
-            crossIndexes.push_back(i);
-            crossIndexes.push_back(this->size() - i - 1);
+            crossIndexes.push_back(&elements[i]);
+            crossIndexes.push_back(&elements[this->size() - i - 1]);
             ++i;
         }
 
         // odd size
         if (this->size() % 2 != 0)
         {
-            crossIndexes.push_back(i);
+            crossIndexes.push_back(&elements[i]);
         }
     }
 
@@ -211,8 +211,7 @@ namespace ariel
 
     int MagicalContainer::SideCrossIterator::operator*() const
     {
-        size_t index = container.crossIndexes[current];
-        return container.elements[index];
+        return *(container.crossIndexes[current]);
     }
 
     MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator++()

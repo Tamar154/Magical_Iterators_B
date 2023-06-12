@@ -9,7 +9,7 @@ namespace ariel
     private:
         std::vector<int> elements;
         std::vector<int *> primePointers;
-        std::vector<size_t> crossIndexes;
+        std::vector<int *> crossIndexes;
 
     public:
         MagicalContainer();
