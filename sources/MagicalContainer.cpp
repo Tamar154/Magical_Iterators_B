@@ -25,14 +25,16 @@ namespace ariel
 
     void MagicalContainer::addElement(int element)
     {
+        // First element inserted or biggest one so far
         if (elements.empty() || element > elements.back())
         {
             elements.push_back(element);
-            handleCrossIndexes();
-            handlePrimeIndexes();
+            handleCrossPointers();
+            handlePrimePointers();
             return;
         }
-
+        
+        // Insert each element in ascending order
         int index = 0;
         for (auto i : elements)
         {
@@ -43,8 +45,8 @@ namespace ariel
             }
             ++index;
         }
-        handleCrossIndexes();
-        handlePrimeIndexes();
+        handleCrossPointers();
+        handlePrimePointers();
     }
 
     void MagicalContainer::removeElement(int element)
@@ -56,8 +58,8 @@ namespace ariel
             {
                 elements.erase(it);
                 flag = true;
-                handleCrossIndexes();
-                handlePrimeIndexes();
+                handleCrossPointers();
+                handlePrimePointers();
             }
         }
         if (!flag)
@@ -74,25 +76,26 @@ namespace ariel
         return elements == other.elements;
     }
 
-    void MagicalContainer::handleCrossIndexes()
+    void MagicalContainer::handleCrossPointers()
     {
-        crossIndexes.clear();
+        crossPointers.clear();
         size_t i = 0;
+        // Point to the elements - one from the left, then one from the right
         while (i < this->size() / 2)
         {
-            crossIndexes.push_back(&elements[i]);
-            crossIndexes.push_back(&elements[this->size() - i - 1]);
+            crossPointers.push_back(&elements[i]);
+            crossPointers.push_back(&elements[this->size() - i - 1]);
             ++i;
         }
 
-        // odd size
+        // If the cantainer has odd size, handle that element
         if (this->size() % 2 != 0)
         {
-            crossIndexes.push_back(&elements[i]);
+            crossPointers.push_back(&elements[i]);
         }
     }
 
-    void MagicalContainer::handlePrimeIndexes()
+    void MagicalContainer::handlePrimePointers()
     {
         primePointers.clear();
         for (auto &i : elements)
@@ -211,7 +214,7 @@ namespace ariel
 
     int MagicalContainer::SideCrossIterator::operator*() const
     {
-        return *(container.crossIndexes[current]);
+        return *(container.crossPointers[current]);
     }
 
     MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator++()

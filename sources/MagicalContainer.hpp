@@ -9,7 +9,7 @@ namespace ariel
     private:
         std::vector<int> elements;
         std::vector<int *> primePointers;
-        std::vector<int *> crossIndexes;
+        std::vector<int *> crossPointers;
 
     public:
         MagicalContainer();
@@ -20,8 +20,8 @@ namespace ariel
 
         bool operator==(const MagicalContainer &other) const;
 
-        void handleCrossIndexes();
-        void handlePrimeIndexes();
+        void handleCrossPointers();
+        void handlePrimePointers();
 
         //  ======================== Iterators ========================
 
